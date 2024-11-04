@@ -14,17 +14,17 @@ export default function App() {
     <NavigationContainer>
       {Platform.OS === "ios" && (
         <Tab.Navigator>
-          <Tab.Screen name="Home" component={Home} />
-          <Tab.Screen name="News" component={News} />
-          <Tab.Screen name="Settings" component={Settings} />
+          <Tab.Screen name="Planets" component={Home} />
+          <Tab.Screen name="Spaceships" component={News} />
+          <Tab.Screen name="Films" component={Settings} />
         </Tab.Navigator>
       )}
 
       {Platform.OS == "android" && (
         <Drawer.Navigator>
-          <Drawer.Screen name="Home" component={Home} />
-          <Drawer.Screen name="News" component={News} />
-          <Drawer.Screen name="Settings" component={Settings} />
+          <Drawer.Screen name="Planets" component={Home} />
+          <Drawer.Screen name="Spaceships" component={News} />
+          <Drawer.Screen name="Films" component={Settings} />
         </Drawer.Navigator>
       )}
     </NavigationContainer>

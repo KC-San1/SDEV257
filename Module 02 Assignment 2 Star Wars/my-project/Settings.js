@@ -5,7 +5,7 @@ import styles from "./styles";
 export default function Settings({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text>Settings Content</Text>
+      <Text>Films Content</Text>
     </View>
   );
 }

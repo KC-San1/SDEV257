@@ -5,7 +5,7 @@ import styles from "./styles";
 export default function Home() {
   return (
     <View style={styles.container}>
-      <Text>Home Content</Text>
+      <Text>Planets Content</Text>
     </View>
   );
 }
