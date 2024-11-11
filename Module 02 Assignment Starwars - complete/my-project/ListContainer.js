@@ -1,32 +1,44 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Platform } from "react-native";
-import Home from "./Home";
-import News from "./News";
-import Settings from "./Settings";
+import React, { useState, useEffect } from "react";
+import { fetchItems } from "./api";
+import List from "./List";
 
-const Tab = createBottomTabNavigator();
-const Drawer = createDrawerNavigator();
+function mapItems(items) {
+  return items.map((value, i) => ({ key: i.toString(), value }));
+}
 
-export default function App() {
+export default function ListContainer() {
+  const [asc, setAsc] = useState(true);
+  const [filter, setFilter] = useState("");
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    fetchItems(filter, asc)
+      .then((resp) => resp.json())
+      .then(({ items }) => {
+        setData(mapItems(items));
+      });
+  }, []);
+
   return (
-    <NavigationContainer>
-      {Platform.OS === "ios" && (
-        <Tab.Navigator>
-          <Tab.Screen name="Planets" component={Home} />
-          <Tab.Screen name="Spaceships" component={News} />
-          <Tab.Screen name="Films" component={Settings} />
-        </Tab.Navigator>
-      )}
-
-      {Platform.OS == "android" && (
-        <Drawer.Navigator>
-          <Drawer.Screen name="Planets" component={Home} />
-          <Drawer.Screen name="Spaceships" component={News} />
-          <Drawer.Screen name="Films" component={Settings} />
-        </Drawer.Navigator>
-      )}
-    </NavigationContainer>
+    <List
+      data={data}
+      asc={asc}
+      onFilter={(text) => {
+        fetchItems(text, asc)
+          .then((resp) => resp.json())
+          .then(({ items }) => {
+            setFilter(text);
+            setData(mapItems(items));
+          });
+      }}
+      onSort={() => {
+        fetchItems(filter, !asc)
+          .then((resp) => resp.json())
+          .then(({ items }) => {
+            setAsc(!asc);
+            setData(mapItems(items));
+          });
+      }}
+    />
   );
 }

@@ -1,32 +1,21 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Platform } from "react-native";
-import Home from "./Home";
-import News from "./News";
-import Settings from "./Settings";
+import React from "react";
+import PropTypes from "prop-types";
+import { View } from "react-native";
+import styles from "./styles";
+import ListFilter from "./ListFilter";
+import ListSort from "./ListSort";
 
-const Tab = createBottomTabNavigator();
-const Drawer = createDrawerNavigator();
-
-export default function App() {
+export default function ListControls({ onFilter, onSort, asc }) {
   return (
-    <NavigationContainer>
-      {Platform.OS === "ios" && (
-        <Tab.Navigator>
-          <Tab.Screen name="Planets" component={Home} />
-          <Tab.Screen name="Spaceships" component={News} />
-          <Tab.Screen name="Films" component={Settings} />
-        </Tab.Navigator>
-      )}
-
-      {Platform.OS == "android" && (
-        <Drawer.Navigator>
-          <Drawer.Screen name="Planets" component={Home} />
-          <Drawer.Screen name="Spaceships" component={News} />
-          <Drawer.Screen name="Films" component={Settings} />
-        </Drawer.Navigator>
-      )}
-    </NavigationContainer>
+    <View style={styles.controls}>
+      <ListFilter onFilter={onFilter} />
+      <ListSort onSort={onSort} asc={asc} />
+    </View>
   );
 }
+
+ListControls.propTypes = {
+  onFilter: PropTypes.func.isRequired,
+  onSort: PropTypes.func.isRequired,
+  asc: PropTypes.bool.isRequired,
+};

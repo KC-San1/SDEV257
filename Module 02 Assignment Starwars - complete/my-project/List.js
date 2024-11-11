@@ -1,32 +1,27 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Platform } from "react-native";
-import Home from "./Home";
-import News from "./News";
-import Settings from "./Settings";
+import React from "react";
+import PropTypes from "prop-types";
+import { Text, FlatList } from "react-native";
+import styles from "./styles";
+import ListControls from "./ListControls";
 
-const Tab = createBottomTabNavigator();
-const Drawer = createDrawerNavigator();
-
-export default function App() {
+export default function List({ Controls, data, onFilter, onSort, asc }) {
   return (
-    <NavigationContainer>
-      {Platform.OS === "ios" && (
-        <Tab.Navigator>
-          <Tab.Screen name="Planets" component={Home} />
-          <Tab.Screen name="Spaceships" component={News} />
-          <Tab.Screen name="Films" component={Settings} />
-        </Tab.Navigator>
-      )}
-
-      {Platform.OS == "android" && (
-        <Drawer.Navigator>
-          <Drawer.Screen name="Planets" component={Home} />
-          <Drawer.Screen name="Spaceships" component={News} />
-          <Drawer.Screen name="Films" component={Settings} />
-        </Drawer.Navigator>
-      )}
-    </NavigationContainer>
+    <FlatList
+      data={data}
+      ListHeaderComponent={<Controls {...{ onFilter, onSort, asc }} />}
+      renderItem={({ item }) => <Text style={styles.item}>{item.value}</Text>}
+    />
   );
 }
+
+List.propTypes = {
+  Controls: PropTypes.func.isRequired,
+  data: PropTypes.array.isRequired,
+  onFilter: PropTypes.func.isRequired,
+  onSort: PropTypes.func.isRequired,
+  asc: PropTypes.bool.isRequired,
+};
+
+List.defaultProps = {
+  Controls: ListControls,
+};
