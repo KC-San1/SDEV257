@@ -32,7 +32,7 @@ export default function List({ Controls, data, onFilter, onSort, asc }) {
         isVisible={modalVisible}
         onBackdropPress={() => setModalVisible(false)}
       >
-        <View style={styles.swipeItem}>
+        <View style={styles.item}>
           <Text style={styles.item}>
             {selectedItem ? selectedItem.value : ""}
           </Text>
