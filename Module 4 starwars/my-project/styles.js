@@ -7,6 +7,33 @@ export default StyleSheet.create({
     paddingTop: 40,
   },
 
+  swipeContainer: {
+    flex: 1,
+    flexDirection: "row",
+    width: 400,
+    height: 40,
+  },
+
+  swipeItem: {
+    height: 40,
+    width: 400,
+    backgroundColor: "azure",
+    justifyContent: "center",
+    borderColor: "slategrey",
+    margin: 5,
+    padding: 5,
+  },
+
+  swipeItemText: {
+    textAlign: "center",
+    color: "slategrey",
+  },
+
+  swipeBlank: {
+    width: 200,
+    height: 30,
+  },
+  
   item: {
     margin: 5,
     padding: 5,
